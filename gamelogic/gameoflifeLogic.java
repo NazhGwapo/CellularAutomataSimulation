@@ -24,7 +24,7 @@ public int countNeighbors(int x,int y,int Blocks,Boolean[][] grid)
     return neighbors;
 }
 
-public void updateGrid(CreateCanvas canva)
+public void updateGrid(CreateCanvas canva,int rule1,int rule2,int rule3)
 {
 int Blocks = canva.get_Blocks();
 Boolean[][] grid = canva.get_grid();
@@ -40,11 +40,11 @@ for(int i = 0; i< Blocks;i++)
         int neighbors = countNeighbors(i, j,Blocks,grid);
         if(grid[i][j])
         {
-            nextgrid[i][j] = (neighbors == 2|| neighbors == 3);
+            nextgrid[i][j] = (neighbors == rule1|| neighbors == rule2);
         }
         else
         {
-            nextgrid[i][j] = (neighbors == 3);
+            nextgrid[i][j] = (neighbors == rule3);
         }
     }
 }
