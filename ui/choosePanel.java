@@ -33,7 +33,7 @@ public class choosePanel extends Panel {
 
         Label title = new Label("Choose Cellular Automata Simulation");
         title.setFont(new Font("Arial", Font.BOLD, 20));
-        Label invisiblefont = new Label("");
+        
 
         PopupMenu popupMenu = new PopupMenu();
         MenuItem menuItem1 = new MenuItem("Conway's game of life");
@@ -47,7 +47,6 @@ public class choosePanel extends Panel {
         this.add(title);
         this.add(confirmBtn);
         this.add(popupMenu);
-        this.add(invisiblefont);
 
         mType = new modeUI();
         this.add(mType);
@@ -55,7 +54,7 @@ public class choosePanel extends Panel {
 
         confirmBtn.addActionListener(e ->
         {
-            popupMenu.show(invisiblefont, this.getX() / 2, this.getY() / 2);
+            popupMenu.show(confirmBtn, this.getX() / 2, this.getY() / 2);
         });
 
         menuItem1.addActionListener((ActionEvent e) ->
@@ -63,7 +62,16 @@ public class choosePanel extends Panel {
             try {
                 int chance = Integer.parseInt(mType.getchancesField().getText().trim());
                 int blocks = Integer.parseInt(mType.getblocksField().getText().trim());
-
+                if(chance > 100 || chance < 0)
+                {
+                    new warningDialog().showWarning(mFrame,"Chance must be 0-100 only!");
+                    chance = 50;
+                }
+                if(blocks > 500 || blocks <2)
+                {
+                    new warningDialog().showWarning(mFrame,"Blocks must be 2-500 only!");
+                    blocks = 100;
+                }
                 if (currentCanva != null)
                 {
                     mFrame.remove(currentCanva);

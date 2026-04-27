@@ -12,7 +12,7 @@ import java.util.TimerTask;
 public class CreateCanvas extends Canvas {
 
     private final int Blocks;
-    private double Chance = 0.5;
+    private double Chance;
 
     // TURNS the entire canvas to an image for smoother rendering
     private Image offscreen;
