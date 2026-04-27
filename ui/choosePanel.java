@@ -82,9 +82,8 @@ public class choosePanel extends Panel {
                 setting.chances = Integer.parseInt(mType.getchancesField().getText().trim());
                 setting.blocks= Integer.parseInt(mType.getblocksField().getText().trim());
                 setting.rField1 = Integer.parseInt(rField.getrField1().getText().trim());
-                setting.rField2 = Integer.parseInt(rField.getrField1().getText().trim());
-                setting.rField3 = Integer.parseInt(rField.getrField1().getText().trim());
-
+                setting.rField2 = Integer.parseInt(rField.getrField2().getText().trim());
+                setting.rField3 = Integer.parseInt(rField.getrField3().getText().trim());
                 FieldsChecking(setting);
 
                 if (currentCanva != null)
@@ -101,11 +100,13 @@ public class choosePanel extends Panel {
                 {
                     canvasReadyListener.onCanvasReady(currentCanva);
                 }
+
                 Button sButton = bPanel.getStartButton();
+                
                 if(sButton.getLabel().equals("Stop"))
                 {
                     sButton.setLabel("Start");
-                    sButton.setBackground(Color.green);
+                    sButton.setBackground(Color.gray);
                 }
 
                 TextField chancesField =  mType.getchancesField();

@@ -188,6 +188,7 @@ public class CreateCanvas extends Canvas {
                 public void run()
                 {
                     CreateCanvas canva = CreateCanvas.this;
+                    
                     logic.updateGrid(canva,canva.getR1(),canva.getR2(),canva.getR3());
                     repaint();
                 }
