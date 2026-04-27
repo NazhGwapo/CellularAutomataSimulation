@@ -21,6 +21,7 @@ public class choosePanel extends Panel {
     private mainFrame mFrame;
     private clickToggle cToggle;
     private modeUI mType;
+    private generationsLabel gLabel;
     
 
     public interface CanvasReadyListener {
@@ -38,8 +39,7 @@ public class choosePanel extends Panel {
     {
         this.mFrame = mFrame;
         this.cToggle = cToggle;
-
-        this.setLayout(new FlowLayout(FlowLayout.CENTER, 130, 40));
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 120, 30));
         this.setBackground(Color.white);
 
         Label title = new Label("Choose Cellular Automata Simulation");
@@ -57,15 +57,17 @@ public class choosePanel extends Panel {
 
         mType = new modeUI();
         ruleFields rField = new ruleFields();
+        gLabel = new generationsLabel();
 
         this.add(title);
         this.add(confirmBtn);
         this.add(popupMenu);
         this.add(mType);
         this.add(rField);
-        rField.conwayField();
+        this.add(gLabel);
         mType.ConwayLabel(menuItem1.getLabel());
-
+        rField.conwayField();
+        gLabel.conwayGenerationLabel(0, 0,0);
 
 
 
@@ -78,6 +80,8 @@ public class choosePanel extends Panel {
         menuItem1.addActionListener((ActionEvent e) ->
         {
             try {
+                
+
                 Settings setting = new Settings();
                 setting.chances = Integer.parseInt(mType.getchancesField().getText().trim());
                 setting.blocks= Integer.parseInt(mType.getblocksField().getText().trim());
@@ -91,7 +95,7 @@ public class choosePanel extends Panel {
                     mFrame.remove(currentCanva);
                 }
 
-                currentCanva = new CreateCanvas(setting.blocks, setting.chances, cToggle, Color.black,setting.rField1,setting.rField2,setting.rField3);
+                currentCanva = new CreateCanvas(setting.blocks, setting.chances, cToggle, Color.black,setting.rField1,setting.rField2,setting.rField3,mType.getModeType(),gLabel);
                 mFrame.add(currentCanva, BorderLayout.CENTER);
                 mFrame.validate();
                 mFrame.repaint();
@@ -108,18 +112,25 @@ public class choosePanel extends Panel {
                     sButton.setLabel("Start");
                     sButton.setBackground(Color.gray);
                 }
+                
+                currentCanva.setGenerationtoZero();
+
+                                
+
+                gLabel.getGnerationsLabel().setText(String.format("Generations: %d", currentCanva.getGenerations()));
+
 
                 TextField chancesField =  mType.getchancesField();
                 Label chancesLabel =  mType.getchancesText();
                 TextField blocksField = mType.getblocksField();
                 Label blocksText = mType.getblocksText();
 
-                    mType.remove(blocksField);
-                    mType.remove(blocksText);
-                    mType.add(chancesLabel);
-                    mType.add(chancesField);
-                    mType.add(blocksText);
-                    mType.add(blocksField);
+                mType.remove(blocksField);
+                mType.remove(blocksText);
+                mType.add(chancesLabel);
+                mType.add(chancesField);
+                mType.add(blocksText);
+                mType.add(blocksField);
             } catch (NumberFormatException ex) {
                 System.err.println("Invalid input: " + ex.getMessage());
             }
@@ -133,7 +144,6 @@ public class choosePanel extends Panel {
                 Label chancesLabel =  mType.getchancesText();
                 TextField blocksField = mType.getblocksField();
                 Label blocksText = mType.getblocksText();
-
                 if(mType.isAncestorOf(chancesField) && mType.isAncestorOf(chancesLabel))
                 {
                     mType.remove(blocksField);

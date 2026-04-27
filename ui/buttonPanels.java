@@ -10,11 +10,12 @@ public class buttonPanels extends Panel {
     private Button ToggleButton;
     private Button KillAllButton;
 
+    private generationsLabel gLabel;
+
 
     public buttonPanels(clickToggle cToggle)
     {
         this.setLayout(new GridLayout(3, 1));
-
         ToggleButton = new Button("Toggle");
         StartButton  = new Button("Start");
         KillAllButton = new Button("Kill All?");
@@ -73,8 +74,12 @@ public class buttonPanels extends Panel {
                 canva.Start();
                 StartButton.setLabel("Start");
                 StartButton.setBackground(Color.gray);
+               
+                
             }
             canva.killAllCell();
+            gLabel.getAliveLabel().setText(String.format("alive: %d",0));
+            gLabel.getDeadLabel().setText(String.format("dead: %d", canva.getdDead()));
         });
 
         this.add(ToggleButton);
@@ -85,6 +90,7 @@ public class buttonPanels extends Panel {
     public void setCanvas(CreateCanvas canva)
     {
         this.canva = canva;
+        this.gLabel = canva.gLabel;
     }
 
     public Button getStartButton()

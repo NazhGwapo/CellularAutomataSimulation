@@ -23,7 +23,7 @@ private int getCellSize(CreateCanvas canva)
     return Math.min(canva.getWidth(), canva.getHeight()) / canva.get_Blocks();
 }
 
-public void toggleCell(int x, int y,CreateCanvas canva)
+public boolean  toggleCell(int x, int y,CreateCanvas canva)
 {
     int size = getCellSize(canva);
     
@@ -44,9 +44,9 @@ public void toggleCell(int x, int y,CreateCanvas canva)
         {
             grid[row][col] = Toggle;
         }
-        
         canva.repaint();
     }
+    return Toggle;
 }
 
 }

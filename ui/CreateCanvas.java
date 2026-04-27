@@ -18,6 +18,10 @@ public class CreateCanvas extends Canvas {
     private int rule2;
     private int rule3;
 
+    private int generations = 0;
+    private int alive = 0;
+    private int dead = 0;
+
 
     // TURNS the entire canvas to an image for smoother rendering
     private Image offscreen;
@@ -32,33 +36,73 @@ public class CreateCanvas extends Canvas {
     private String modeType;
 
     gameoflifeLogic logic = new gameoflifeLogic();
-
-    public CreateCanvas(int Blocks, double Chance, clickToggle cToggle, Color c,int rule1,int rule2,int rule3)
+    generationsLabel gLabel;
+    public CreateCanvas(int Blocks, double Chance, clickToggle cToggle, Color c,int rule1,int rule2,int rule3,String modeType,generationsLabel gLabel)
     {
+        this.gLabel = gLabel;
         this.Blocks = Blocks;
         this.Chance = Chance;
         this.rule1 = rule1;
         this.rule2 = rule2;
         this.rule3 = rule3;
-
+        this.modeType = modeType;
         this.setBackground(c);
         gridInit();
+        if(this.modeType.equals("Conway's game of life"))
+        {
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e)
+                {
+                    Boolean toggle = cToggle.toggleCell(e.getX(), e.getY(), CreateCanvas.this);
+                    if(toggle)
+                    {
+                        CreateCanvas.this.alive++;
+                        gLabel.getAliveLabel().setText(String.format("Alive: %d",alive));
+                    }
+                    else
+                    {
+                        CreateCanvas.this.dead++;
+                        gLabel.getDeadLabel().setText(String.format("Dead: %d", dead));
+                    }
+                }});
 
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e)
-            {
-                cToggle.toggleCell(e.getX(), e.getY(), CreateCanvas.this);
-            }
-        });
+            addMouseMotionListener(new MouseMotionAdapter() {
+                @Override
+                public void mouseDragged(MouseEvent e)
+                {
+                    Boolean toggle = cToggle.toggleCell(e.getX(), e.getY(), CreateCanvas.this);
+                    if(toggle)
+                    {
+                    CreateCanvas.this.alive++;
+                    CreateCanvas.this.dead--;
+                    int squared = (int)(Math.pow((double)CreateCanvas.this.get_Blocks(),2));
+                    if(alive > squared)
+                    {
+                    alive = squared;
+                    dead = 0;
+                    }
+                    gLabel.getDeadLabel().setText(String.format("Dead: %d", dead));
+                    gLabel.getAliveLabel().setText(String.format("Alive: %d", alive));
+                    }
+                    else
+                    {
+                        CreateCanvas.this.dead++;
+                        CreateCanvas.this.alive--;
+                        int squared = (int)(Math.pow((double)CreateCanvas.this.get_Blocks(),2));
+                        if(dead > squared)
+                        {
+                            dead = squared;
+                            alive = 0;
+                        }
+                        gLabel.getDeadLabel().setText(String.format("Dead: %d", dead));
+                        gLabel.getAliveLabel().setText(String.format("Alive: %d", alive));
 
-        addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e)
-            {
-                cToggle.toggleCell(e.getX(), e.getY(), CreateCanvas.this);
-            }
-        });
+                    }
+                }
+                });
+        }
+        
     }
 
  
@@ -115,21 +159,59 @@ public class CreateCanvas extends Canvas {
         return this.rule3;
     }
 
+    public int getAlive()
+    {
+        return this.alive;
+    }
 
+    
+    public int getGenerations()
+    {
+        return this.generations;
+    }
 
+    public int getdDead()
+    {
+        return this.dead;
+    }
+
+    public void setGenerationtoZero()
+    {
+        this.generations = 0;
+    }
+
+    public void setAlivetoZero()
+    {
+        this.alive = 0;
+    }
+    
+    public void setDeadtoZero()
+    {
+        this.dead = 0;
+    }
+    
     public final void gridInit()
     {
-        if (Chance < 0 || Chance > 1)
-            Chance = 0.5;
+        
 
         grid = new Boolean[Blocks][Blocks];
         for (int i = 0; i < Blocks; i++)
         {
             for (int j = 0; j < Blocks; j++)
             {
-                grid[i][j] = Math.random() <= Chance;
+                grid[i][j] = (int) (Math.random()*100) <= Chance;
+                if(grid[i][j])
+                {
+                    this.alive++;
+                }
+                else
+                {
+                    this.dead++;
+                }
             }
         }
+        gLabel.getAliveLabel().setText(String.format("Alive: %d",alive));
+        gLabel.getDeadLabel().setText(String.format("Dead: %d", dead));
     }
 
     @Override
@@ -155,16 +237,22 @@ public class CreateCanvas extends Canvas {
         int gridHeight = size * Blocks;
         int startX = (getWidth() - gridWidth) / 2;
         int startY = (getHeight() - gridHeight) / 2;
-
+        this.alive = 0;
+        this.dead = 0;
         for (int i = 0; i < Blocks; i++)
         {
             for (int j = 0; j < Blocks; j++)
             {
                 if (grid[i][j])
+                {
+                    this.alive++;
                     offg.setColor(Color.WHITE);
+                }
                 else
+                {
+                    this.dead++;
                     offg.setColor(Color.BLACK);
-
+                }
                 offg.fillRect(startX + j * size, startY + i * size, size, size);
             }
         }
@@ -188,9 +276,14 @@ public class CreateCanvas extends Canvas {
                 public void run()
                 {
                     CreateCanvas canva = CreateCanvas.this;
-                    
                     logic.updateGrid(canva,canva.getR1(),canva.getR2(),canva.getR3());
+                    generations++;
+                    gLabel.getGnerationsLabel().setText(String.format("Generations: %d", generations));
+                    gLabel.getAliveLabel().setText(String.format("Alive: %d",alive));
+                    gLabel.getDeadLabel().setText(String.format("Dead: %d", dead));
+
                     repaint();
+                    
                 }
             }, 0, 100);
         }
@@ -206,11 +299,14 @@ public class CreateCanvas extends Canvas {
 
     public void killAllCell()
     {
+        this.dead = 0;
         for (int i = 0; i < Blocks; i++)
         {
             for (int j = 0; j < Blocks; j++)
             {
                 grid[i][j] = false;
+                this.dead++;
+
             }
         }
         repaint();

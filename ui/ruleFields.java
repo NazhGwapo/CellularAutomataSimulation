@@ -46,7 +46,7 @@ public class ruleFields extends Panel
         return ruleField1;
     }
 
-    
+
     public TextField getrField2()
     {
         return ruleField2;
