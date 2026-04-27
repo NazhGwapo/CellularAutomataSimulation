@@ -38,12 +38,17 @@ public boolean  toggleCell(int x, int y,CreateCanvas canva)
     {
         if(!grid[row][col] && Toggle)
         {
+            canva.setAlive(canva.getAlive() + 1);
+            canva.setDead(canva.getDead() - 1);
             grid[row][col] = Toggle;
         }
         else if(grid[row][col] && Toggle == false) 
         {
+            canva.setAlive(canva.getAlive() - 1);
+            canva.setDead(canva.getDead() + 1);
             grid[row][col] = Toggle;
         }
+        
         canva.repaint();
     }
     return Toggle;

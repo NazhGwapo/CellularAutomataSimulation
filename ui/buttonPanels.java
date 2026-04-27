@@ -79,7 +79,7 @@ public class buttonPanels extends Panel {
             }
             canva.killAllCell();
             gLabel.getAliveLabel().setText(String.format("alive: %d",0));
-            gLabel.getDeadLabel().setText(String.format("dead: %d", canva.getdDead()));
+            gLabel.getDeadLabel().setText(String.format("dead: %d", canva.getDead()));
         });
 
         this.add(ToggleButton);
