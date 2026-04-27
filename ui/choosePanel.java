@@ -21,6 +21,7 @@ public class choosePanel extends Panel {
     private mainFrame mFrame;
     private clickToggle cToggle;
     private modeUI mType;
+    private ruleFields rField;
     private generationsLabel gLabel;
     
 
@@ -56,7 +57,7 @@ public class choosePanel extends Panel {
         confirmBtn.setFont(new Font("Arial", Font.BOLD, 30));
 
         mType = new modeUI();
-        ruleFields rField = new ruleFields();
+        rField = new ruleFields();
         gLabel = new generationsLabel();
 
         this.add(title);
@@ -74,7 +75,15 @@ public class choosePanel extends Panel {
 
         confirmBtn.addActionListener(e ->
         {
+            if(currentCanva != null && currentCanva.get_Running())
+            {
+                currentCanva.set_Running(false);
+                currentCanva.Start();
+                bPanel.getStartButton().setLabel("Start");
+                bPanel.getStartButton().setBackground(Color.gray);
+            }
             popupMenu.show(confirmBtn, this.getX() / 2, this.getY() / 2);
+           
         });
 
         menuItem1.addActionListener((ActionEvent e) ->
@@ -132,7 +141,22 @@ public class choosePanel extends Panel {
                 mType.add(blocksText);
                 mType.add(blocksField);
             } catch (NumberFormatException ex) {
-                System.err.println("Invalid input: " + ex.getMessage());
+                new warningDialog().showWarning(mFrame, "Invalid inputs(Restarting all Inputs)");
+
+                if(currentCanva != null)
+                {
+                    currentCanva.set_Running(false);
+                    mFrame.remove(currentCanva);
+                }
+                mType.getchancesField().setText("50");
+                mType.getblocksField().setText("100");
+                rField.getrField1().setText("2");
+                rField.getrField2().setText("3");
+                rField.getrField3().setText("3");
+                gLabel.getGnerationsLabel().setText("Generations: 0");
+                gLabel.getAliveLabel().setText("Alive: 0");
+                gLabel.getDeadLabel().setText("Dead: 0");
+
             }
         });
 
@@ -173,26 +197,31 @@ public class choosePanel extends Panel {
          if(s.chances > 100 || s.chances < 0)
                 {
                     new warningDialog().showWarning(mFrame,"Chance must be 0-100 only!");
+                    mType.getchancesField().setText("50");
                     s.chances = 50;
                 }
                 if(s.blocks> 500 || s.blocks <2)
                 {
                     new warningDialog().showWarning(mFrame,"Blocks must be 2-500 only!");
+                    mType.getblocksField().setText("100");
                     s.blocks = 100;
                 }
                 if(s.rField1 > 5 || s.rField1 <1)
                 {
                     new warningDialog().showWarning(mFrame,"Rule Field 1 must be 1-5 only!");
+                    rField.getrField1().setText("2");
                     s.rField1 = 2;
                 }
                 if(s.rField2 > 5 || s.rField2 <1)
                 {
                     new warningDialog().showWarning(mFrame,"Rule Field 2 must be 1-5 only!");
+                    rField.getrField2().setText("3");
                     s.rField2 = 3;
                 }
                 if(s.rField3 > 5 || s.rField3 <1)
                 {
                     new warningDialog().showWarning(mFrame,"Rule Field 3 must be 1-5 only!");
+                    rField.getrField3().setText("3");
                     s.rField3 = 3;
                 }
               

@@ -39,31 +39,50 @@ public class CreateCanvas extends Canvas {
     generationsLabel gLabel;
     public CreateCanvas(int Blocks, double Chance, clickToggle cToggle, Color c,int rule1,int rule2,int rule3,String modeType,generationsLabel gLabel)
     {
+        this.modeType = modeType;
         this.gLabel = gLabel;
         this.Blocks = Blocks;
         this.Chance = Chance;
         this.rule1 = rule1;
         this.rule2 = rule2;
         this.rule3 = rule3;
-        this.modeType = modeType;
-        this.setBackground(c);
-        gridInit();
         if(this.modeType.equals("Conway's game of life"))
         {
+        
+        this.setBackground(c);
+        gridInit();
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e)
                 {
+                    
                     Boolean toggle = cToggle.toggleCell(e.getX(), e.getY(), CreateCanvas.this);
                     if(toggle)
                     {
-                        CreateCanvas.this.alive++;
-                        gLabel.getAliveLabel().setText(String.format("Alive: %d",alive));
+                    CreateCanvas.this.alive++;
+                    CreateCanvas.this.dead--;
+                    int squared = (int)(Math.pow((double)CreateCanvas.this.get_Blocks(),2));
+                    if(alive > squared)
+                    {
+                        alive = squared;
+                        dead = 0;
+                        }
+                        gLabel.getDeadLabel().setText(String.format("Dead: %d", dead));
+                        gLabel.getAliveLabel().setText(String.format("Alive: %d", alive));
                     }
                     else
                     {
                         CreateCanvas.this.dead++;
+                        CreateCanvas.this.alive--;
+                        int squared = (int)(Math.pow((double)CreateCanvas.this.get_Blocks(),2));
+                        if(dead > squared)
+                        {
+                            dead = squared;
+                            alive = 0;
+                        }
                         gLabel.getDeadLabel().setText(String.format("Dead: %d", dead));
+                        gLabel.getAliveLabel().setText(String.format("Alive: %d", alive));
+
                     }
                 }});
 
@@ -79,11 +98,11 @@ public class CreateCanvas extends Canvas {
                     int squared = (int)(Math.pow((double)CreateCanvas.this.get_Blocks(),2));
                     if(alive > squared)
                     {
-                    alive = squared;
-                    dead = 0;
-                    }
-                    gLabel.getDeadLabel().setText(String.format("Dead: %d", dead));
-                    gLabel.getAliveLabel().setText(String.format("Alive: %d", alive));
+                        alive = squared;
+                        dead = 0;
+                        }
+                        gLabel.getDeadLabel().setText(String.format("Dead: %d", dead));
+                        gLabel.getAliveLabel().setText(String.format("Alive: %d", alive));
                     }
                     else
                     {
@@ -276,6 +295,7 @@ public class CreateCanvas extends Canvas {
                 public void run()
                 {
                     CreateCanvas canva = CreateCanvas.this;
+                    
                     logic.updateGrid(canva,canva.getR1(),canva.getR2(),canva.getR3());
                     generations++;
                     gLabel.getGnerationsLabel().setText(String.format("Generations: %d", generations));
