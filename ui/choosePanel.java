@@ -4,6 +4,16 @@ import gamelogic.clickToggle;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+class Settings
+{
+    int chances;
+    int blocks;
+    int rField1;
+    int rField2;
+    int rField3;
+
+}
+
 public class choosePanel extends Panel {
 
     private CreateCanvas currentCanva;
@@ -11,6 +21,7 @@ public class choosePanel extends Panel {
     private mainFrame mFrame;
     private clickToggle cToggle;
     private modeUI mType;
+    
 
     public interface CanvasReadyListener {
         void onCanvasReady(CreateCanvas canvas);
@@ -44,13 +55,20 @@ public class choosePanel extends Panel {
         Button confirmBtn = new Button("Choose");
         confirmBtn.setFont(new Font("Arial", Font.BOLD, 30));
 
+        mType = new modeUI();
+        ruleFields rField = new ruleFields();
+
         this.add(title);
         this.add(confirmBtn);
         this.add(popupMenu);
-
-        mType = new modeUI();
         this.add(mType);
+        this.add(rField);
+        rField.conwayField();
         mType.ConwayLabel(menuItem1.getLabel());
+
+
+
+
 
         confirmBtn.addActionListener(e ->
         {
@@ -60,24 +78,21 @@ public class choosePanel extends Panel {
         menuItem1.addActionListener((ActionEvent e) ->
         {
             try {
-                int chance = Integer.parseInt(mType.getchancesField().getText().trim());
-                int blocks = Integer.parseInt(mType.getblocksField().getText().trim());
-                if(chance > 100 || chance < 0)
-                {
-                    new warningDialog().showWarning(mFrame,"Chance must be 0-100 only!");
-                    chance = 50;
-                }
-                if(blocks > 500 || blocks <2)
-                {
-                    new warningDialog().showWarning(mFrame,"Blocks must be 2-500 only!");
-                    blocks = 100;
-                }
+                Settings setting = new Settings();
+                setting.chances = Integer.parseInt(mType.getchancesField().getText().trim());
+                setting.blocks= Integer.parseInt(mType.getblocksField().getText().trim());
+                setting.rField1 = Integer.parseInt(rField.getrField1().getText().trim());
+                setting.rField2 = Integer.parseInt(rField.getrField1().getText().trim());
+                setting.rField3 = Integer.parseInt(rField.getrField1().getText().trim());
+
+                FieldsChecking(setting);
+
                 if (currentCanva != null)
                 {
                     mFrame.remove(currentCanva);
                 }
 
-                currentCanva = new CreateCanvas(blocks, chance, cToggle, Color.black);
+                currentCanva = new CreateCanvas(setting.blocks, setting.chances, cToggle, Color.black,setting.rField1,setting.rField2,setting.rField3);
                 mFrame.add(currentCanva, BorderLayout.CENTER);
                 mFrame.validate();
                 mFrame.repaint();
@@ -98,19 +113,12 @@ public class choosePanel extends Panel {
                 TextField blocksField = mType.getblocksField();
                 Label blocksText = mType.getblocksText();
 
-
-                
                     mType.remove(blocksField);
                     mType.remove(blocksText);
                     mType.add(chancesLabel);
                     mType.add(chancesField);
                     mType.add(blocksText);
                     mType.add(blocksField);
-
-              
-
-                
-
             } catch (NumberFormatException ex) {
                 System.err.println("Invalid input: " + ex.getMessage());
             }
@@ -124,6 +132,7 @@ public class choosePanel extends Panel {
                 Label chancesLabel =  mType.getchancesText();
                 TextField blocksField = mType.getblocksField();
                 Label blocksText = mType.getblocksText();
+
                 if(mType.isAncestorOf(chancesField) && mType.isAncestorOf(chancesLabel))
                 {
                     mType.remove(blocksField);
@@ -146,5 +155,36 @@ public class choosePanel extends Panel {
     public CreateCanvas getCurrentCanva()
     {
         return this.currentCanva;
+    }
+
+    private void FieldsChecking(Settings s)
+    {
+         if(s.chances > 100 || s.chances < 0)
+                {
+                    new warningDialog().showWarning(mFrame,"Chance must be 0-100 only!");
+                    s.chances = 50;
+                }
+                if(s.blocks> 500 || s.blocks <2)
+                {
+                    new warningDialog().showWarning(mFrame,"Blocks must be 2-500 only!");
+                    s.blocks = 100;
+                }
+                if(s.rField1 > 5 || s.rField1 <1)
+                {
+                    new warningDialog().showWarning(mFrame,"Rule Field 1 must be 1-5 only!");
+                    s.rField1 = 2;
+                }
+                if(s.rField2 > 5 || s.rField2 <1)
+                {
+                    new warningDialog().showWarning(mFrame,"Rule Field 2 must be 1-5 only!");
+                    s.rField2 = 3;
+                }
+                if(s.rField3 > 5 || s.rField3 <1)
+                {
+                    new warningDialog().showWarning(mFrame,"Rule Field 3 must be 1-5 only!");
+                    s.rField3 = 3;
+                }
+              
+
     }
 }

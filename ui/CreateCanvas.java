@@ -14,20 +14,33 @@ public class CreateCanvas extends Canvas {
     private final int Blocks;
     private double Chance;
 
+    private int rule1;
+    private int rule2;
+    private int rule3;
+
+
     // TURNS the entire canvas to an image for smoother rendering
     private Image offscreen;
     private Graphics offg;
     private Timer timer;
 
+
+
     private boolean running = false;
     private Boolean[][] grid;
 
+    private String modeType;
+
     gameoflifeLogic logic = new gameoflifeLogic();
 
-    public CreateCanvas(int Blocks, double Chance, clickToggle cToggle, Color c)
+    public CreateCanvas(int Blocks, double Chance, clickToggle cToggle, Color c,int rule1,int rule2,int rule3)
     {
         this.Blocks = Blocks;
-        this.Chance = (Chance >= 0 && Chance <= 100) ? Chance / 100.0 : 0.5;
+        this.Chance = Chance;
+        this.rule1 = rule1;
+        this.rule2 = rule2;
+        this.rule3 = rule3;
+
         this.setBackground(c);
         gridInit();
 
@@ -48,6 +61,7 @@ public class CreateCanvas extends Canvas {
         });
     }
 
+ 
     public void setChance(double Chance)
     {
         this.Chance = Chance;
@@ -72,6 +86,36 @@ public class CreateCanvas extends Canvas {
     {
         return grid;
     }
+       public void setR1(int Rule)
+    {
+        this.rule1 = Rule;
+    }
+
+       public void setR2(int Rule)
+    {
+        this.rule2 = Rule;
+    }
+
+       public void setR3(int Rule)
+    {
+        this.rule3 = Rule;
+    }
+
+    public int getR1()
+    {
+        return this.rule1;
+    }
+        public int getR2()
+    {
+        return this.rule2;
+    }
+
+        public int getR3()
+    {
+        return this.rule3;
+    }
+
+
 
     public final void gridInit()
     {
@@ -143,7 +187,8 @@ public class CreateCanvas extends Canvas {
                 @Override
                 public void run()
                 {
-                    logic.updateGrid(CreateCanvas.this);
+                    CreateCanvas canva = CreateCanvas.this;
+                    logic.updateGrid(canva,canva.getR1(),canva.getR2(),canva.getR3());
                     repaint();
                 }
             }, 0, 100);
