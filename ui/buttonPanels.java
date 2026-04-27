@@ -73,7 +73,6 @@ public class buttonPanels extends Panel {
                 canva.Start();
                 StartButton.setLabel("Start");
                 StartButton.setBackground(Color.gray);
-                System.out.println("HI");
             }
             canva.killAllCell();
         });
