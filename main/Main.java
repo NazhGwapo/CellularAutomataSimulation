@@ -11,6 +11,6 @@ public class Main
     {
         Screen window = new Screen();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        window.CreateScreen("Game of Life", screenSize.width,screenSize.height);        
+        window.CreateScreen("Cellular Automata", screenSize.width,screenSize.height);        
     }
 }
