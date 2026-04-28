@@ -22,6 +22,8 @@ public class CreateCanvas extends Canvas {
     private int alive = 0;
     private int dead = 0;
 
+    private graphCanva gCanva;
+
 
     // TURNS the entire canvas to an image for smoother rendering
     private Image offscreen;
@@ -33,7 +35,7 @@ public class CreateCanvas extends Canvas {
     private boolean running = false;
     private Boolean[][] grid;
 
-    private String modeType;
+    private String modeType = null;
 
     gameoflifeLogic logic = new gameoflifeLogic();
     generationsLabel gLabel;
@@ -75,6 +77,10 @@ public class CreateCanvas extends Canvas {
                         alive = 0;
                     }
                     }
+                     if(gCanva!= null)
+                    {
+                        gCanva.repaint();
+                    }
                     gLabel.getDeadLabel().setText(String.format("Dead: %d", dead));
                     gLabel.getAliveLabel().setText(String.format("Alive: %d", alive));
 
@@ -87,6 +93,7 @@ public class CreateCanvas extends Canvas {
                     CreateCanvas canva = CreateCanvas.this;
                     Boolean toggle = cToggle.toggleCell(e.getX(), e.getY(), canva);
                     int squared = (int)(Math.pow((double)canva.get_Blocks(),2));
+                    
                     if(toggle)
                     {
                     if(alive > squared)
@@ -102,6 +109,10 @@ public class CreateCanvas extends Canvas {
                         dead = squared;
                         alive = 0;
                     }
+                    }
+                    if(gCanva!= null)
+                    {
+                        gCanva.repaint();
                     }
                     gLabel.getDeadLabel().setText(String.format("Dead: %d", dead));
                     gLabel.getAliveLabel().setText(String.format("Alive: %d", alive));
@@ -195,6 +206,11 @@ public class CreateCanvas extends Canvas {
     {
         this.dead = Dead;
     }
+
+    public void setGraph(graphCanva gCanva)
+    {
+        this.gCanva = gCanva;
+    }
     
     public final void gridInit()
     {
@@ -234,6 +250,8 @@ public class CreateCanvas extends Canvas {
             offscreen = createImage(getWidth(), getHeight());
             offg = offscreen.getGraphics();
         }
+
+
 
         offg.setColor(getBackground());
         offg.fillRect(0, 0, getWidth(), getHeight());
@@ -282,7 +300,18 @@ public class CreateCanvas extends Canvas {
                 public void run()
                 {
                     CreateCanvas canva = CreateCanvas.this;
-                    
+                    graphCanva graphCanva = canva.gCanva;
+                    if(graphCanva != null)
+                    {
+                        int xcoor = graphCanva.getXcoor();
+                        int ycoor = graphCanva.getYcoor();
+                        graphCanva.pushAliveinList(alive);
+                        graphCanva.setXcoor(xcoor+1);
+                        graphCanva.setYcoor(ycoor+1);
+
+                        graphCanva.repaint();
+                        
+                    }
                     logic.updateGrid(canva,canva.getR1(),canva.getR2(),canva.getR3());
                     generations++;
                     gLabel.getGnerationsLabel().setText(String.format("Generations: %d", generations));

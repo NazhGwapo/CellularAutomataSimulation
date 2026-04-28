@@ -23,6 +23,8 @@ public class choosePanel extends Panel {
     private modeUI mType;
     private ruleFields rField;
     private generationsLabel gLabel;
+
+    
     
 
     public interface CanvasReadyListener {

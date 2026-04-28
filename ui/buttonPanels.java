@@ -9,21 +9,25 @@ public class buttonPanels extends Panel {
     private Button StartButton;
     private Button ToggleButton;
     private Button KillAllButton;
+    private Button showGraphButton;
 
     private generationsLabel gLabel;
+    private AliveGraph aGraph;
 
 
-    public buttonPanels(clickToggle cToggle)
+    public buttonPanels(clickToggle cToggle,mainFrame mFrame)
     {
-        this.setLayout(new GridLayout(3, 1));
+        this.setLayout(new GridLayout(4, 1));
         ToggleButton = new Button("Toggle");
         StartButton  = new Button("Start");
         KillAllButton = new Button("Kill All?");
+        showGraphButton = new Button("Show Graph");
 
         StartButton.setBackground(Color.gray);
         StartButton.setFont(new Font("Arial", Font.BOLD, 15));
         ToggleButton.setFont(new Font("Arial", Font.BOLD, 15));
         KillAllButton.setFont(new Font("Arial", Font.BOLD, 15));
+        showGraphButton.setFont(new Font("Arial", Font.BOLD, 15));
 
         ToggleButton.setLabel("Toggle: Alive");
         ToggleButton.setBackground(Color.green);
@@ -82,13 +86,23 @@ public class buttonPanels extends Panel {
                 
             }
             canva.killAllCell();
-            gLabel.getAliveLabel().setText(String.format("alive: %d",0));
-            gLabel.getDeadLabel().setText(String.format("dead: %d", canva.getDead()));
+            gLabel.getAliveLabel().setText(String.format("Alive: %d",0));
+            gLabel.getDeadLabel().setText(String.format("Dead: %d", canva.getDead()));
         });
+
+        showGraphButton.addActionListener(e->
+            {
+                if (canva == null) return;
+                aGraph = new AliveGraph();
+                aGraph.showGraph(mFrame);
+                this.canva.setGraph(aGraph.getgraphCanva());
+
+            });
 
         this.add(ToggleButton);
         this.add(StartButton);
         this.add(KillAllButton);
+        this.add(showGraphButton);
     }
 
     public void setCanvas(CreateCanvas canva)
