@@ -81,6 +81,9 @@ public class choosePanel extends Panel {
                 currentCanva.Start();
                 bPanel.getStartButton().setLabel("Start");
                 bPanel.getStartButton().setBackground(Color.gray);
+                gLabel.getGnerationsLabel().setText(String.format("Generations: %d", currentCanva.getGenerations()));
+                gLabel.getAliveLabel().setText(String.format("Alive: %d", currentCanva.getAlive()));
+                gLabel.getDeadLabel().setText(String.format("Dead : %d", currentCanva.getDead()));
             }
             popupMenu.show(confirmBtn, this.getX() / 2, this.getY() / 2);
            
@@ -120,6 +123,7 @@ public class choosePanel extends Panel {
                 {
                     sButton.setLabel("Start");
                     sButton.setBackground(Color.gray);
+                    
                 }
                 
                 currentCanva.setGenerationtoZero();

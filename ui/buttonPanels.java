@@ -54,6 +54,10 @@ public class buttonPanels extends Panel {
                 canva.Start();
                 StartButton.setLabel("Start");
                 StartButton.setBackground(Color.gray);
+                gLabel.getGnerationsLabel().setText(String.format("Generations: %d", canva.getGenerations()));
+                gLabel.getAliveLabel().setText(String.format("Alive: %d", canva.getAlive()));
+                gLabel.getDeadLabel().setText(String.format("Dead : %d", canva.getDead()));
+
             }
             else
             {
