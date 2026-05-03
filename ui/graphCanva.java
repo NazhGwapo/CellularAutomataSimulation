@@ -6,7 +6,7 @@ import java.util.List;
  
 public class graphCanva extends Canvas {
  
-    private List<Integer> alivelist = new ArrayList<>();
+    private final List<Integer> alivelist = new ArrayList<>();
  
     private Image offscreen;
     private Graphics offg;

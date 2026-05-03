@@ -10,7 +10,7 @@ public class buttonPanels extends Panel {
     private Button ToggleButton;
     private Button KillAllButton;
     private Button showGraphButton;
-
+    
     private generationsLabel gLabel;
     private AliveGraph aGraph;
 
@@ -93,9 +93,18 @@ public class buttonPanels extends Panel {
         showGraphButton.addActionListener(e->
             {
                 if (canva == null) return;
-                aGraph = new AliveGraph();
-                aGraph.showGraph(mFrame);
-                this.canva.setGraph(aGraph.getgraphCanva());
+                if(aGraph!= null && aGraph.getRunning())
+                {
+                    
+                    new warningDialog().showWarning(mFrame,"You have made a graph already");
+                    
+                }
+                else
+                {
+                    aGraph = new AliveGraph();
+                    aGraph.showGraph(mFrame);
+                    this.canva.setGraph(aGraph.getgraphCanva());
+                }
 
             });
 

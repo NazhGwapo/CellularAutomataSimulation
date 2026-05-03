@@ -8,10 +8,11 @@ public class AliveGraph
 {
 
         private graphCanva graphCanvas;
-
+        private Boolean graphRunning;
+        private Dialog dialog;
     public void showGraph(mainFrame parent)
     {
-       Dialog dialog = new Dialog(parent, "Graph", false);
+       dialog = new Dialog(parent, "Graph", false);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -25,9 +26,17 @@ public class AliveGraph
         
         
         dialog.add(graphCanvas, BorderLayout.CENTER);
-
+        graphRunning = true;
         Button closeBtn = new Button("Close");
-        closeBtn.addActionListener(e -> dialog.dispose());
+        closeBtn.addActionListener(e -> 
+            {   
+
+                dialog.dispose();
+                dialog = null;
+                graphRunning = false;
+                
+            }
+        );
         
         dialog.add(closeBtn, BorderLayout.SOUTH);
 
@@ -39,5 +48,14 @@ public class AliveGraph
     public graphCanva getgraphCanva()
     {
         return this.graphCanvas;
+    }
+
+    public Dialog getDialog()
+    {
+        return this.dialog;
+    }
+    public boolean  getRunning()
+    {
+        return graphRunning;
     }
 }
