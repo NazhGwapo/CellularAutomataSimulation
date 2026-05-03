@@ -1,4 +1,4 @@
-package ui;
+package ui.mainComponents;
 
 import gamelogic.clickToggle;
 import gamelogic.gameoflifeLogic;
@@ -8,6 +8,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.Timer;
 import java.util.TimerTask;
+import ui.ControlPanel.PanelComponents.generationsLabel;
+import ui.ControlPanel.PanelComponents.graphCanva;
 
 public class CreateCanvas extends Canvas {
 
@@ -38,7 +40,7 @@ public class CreateCanvas extends Canvas {
     private String modeType = null;
 
     gameoflifeLogic logic = new gameoflifeLogic();
-    generationsLabel gLabel;
+    public generationsLabel gLabel;
     public CreateCanvas(int Blocks, double Chance, clickToggle cToggle, Color c,int rule1,int rule2,int rule3,String modeType,generationsLabel gLabel)
     {
         this.modeType = modeType;

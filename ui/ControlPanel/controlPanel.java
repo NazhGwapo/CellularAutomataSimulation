@@ -1,6 +1,8 @@
-package ui;
+package ui.ControlPanel;
 
 import gamelogic.clickToggle;
+import ui.mainComponents.mainFrame;
+
 import java.awt.*;
 
 public class controlPanel extends Panel {

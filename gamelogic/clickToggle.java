@@ -1,7 +1,7 @@
 package gamelogic;
 
 
-import ui.CreateCanvas;
+import ui.mainComponents.CreateCanvas;
 
 public class clickToggle
 {

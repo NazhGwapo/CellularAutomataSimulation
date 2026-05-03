@@ -1,4 +1,4 @@
-package ui;
+package ui.ControlPanel.PanelComponents;
 
 import java.awt.*;
 

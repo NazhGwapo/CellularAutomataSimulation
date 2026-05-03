@@ -2,7 +2,7 @@ package main;
 
 
 import java.awt.*;
-import ui.Screen;
+import ui.mainScreen.Screen;
 
 
 public class Main

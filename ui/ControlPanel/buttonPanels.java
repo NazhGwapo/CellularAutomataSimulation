@@ -1,6 +1,12 @@
-package ui;
+package ui.ControlPanel;
 
 import gamelogic.clickToggle;
+import ui.ControlPanel.PanelComponents.AliveGraph;
+import ui.ControlPanel.PanelComponents.generationsLabel;
+import ui.helperComponent.warningDialog;
+import ui.mainComponents.CreateCanvas;
+import ui.mainComponents.mainFrame;
+
 import java.awt.*;
 
 public class buttonPanels extends Panel {

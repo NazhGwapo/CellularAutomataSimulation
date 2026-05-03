@@ -1,6 +1,7 @@
-package ui;
+package ui.ControlPanel.PanelComponents;
 
 import java.awt.*;
+import ui.mainComponents.mainFrame;
 
 
 

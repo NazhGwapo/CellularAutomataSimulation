@@ -1,8 +1,14 @@
-package ui;
+package ui.ControlPanel;
 
 import gamelogic.clickToggle;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import ui.ControlPanel.PanelComponents.generationsLabel;
+import ui.ControlPanel.PanelComponents.modeUI;
+import ui.ControlPanel.PanelComponents.ruleFields;
+import ui.helperComponent.warningDialog;
+import ui.mainComponents.CreateCanvas;
+import ui.mainComponents.mainFrame;
 
 class Settings
 {
@@ -18,7 +24,7 @@ public class choosePanel extends Panel {
 
     private CreateCanvas currentCanva;
 
-    private mainFrame mFrame;
+    private final mainFrame mFrame;
     private clickToggle cToggle;
     private modeUI mType;
     private ruleFields rField;
@@ -203,32 +209,32 @@ public class choosePanel extends Panel {
          if(s.chances > 100 || s.chances < 0)
                 {
                     new warningDialog().showWarning(mFrame,"Chance must be 0-100 only!");
-                    mType.getchancesField().setText("50");
                     s.chances = 50;
+                    mType.getchancesField().setText("50");
                 }
                 if(s.blocks> 500 || s.blocks <2)
                 {
                     new warningDialog().showWarning(mFrame,"Blocks must be 2-500 only!");
-                    mType.getblocksField().setText("100");
                     s.blocks = 100;
+                    mType.getblocksField().setText(String.format("%d",s.blocks));
                 }
                 if(s.rField1 > 5 || s.rField1 <1)
                 {
                     new warningDialog().showWarning(mFrame,"Rule Field 1 must be 1-5 only!");
-                    rField.getrField1().setText("2");
                     s.rField1 = 2;
+                    rField.getrField1().setText(String.format("%d",s.rField1));
                 }
                 if(s.rField2 > 5 || s.rField2 <1)
                 {
                     new warningDialog().showWarning(mFrame,"Rule Field 2 must be 1-5 only!");
-                    rField.getrField2().setText("3");
                     s.rField2 = 3;
+                    rField.getrField2().setText(String.format("%d",s.rField2));
                 }
                 if(s.rField3 > 5 || s.rField3 <1)
                 {
                     new warningDialog().showWarning(mFrame,"Rule Field 3 must be 1-5 only!");
-                    rField.getrField3().setText("3");
                     s.rField3 = 3;
+                    rField.getrField3().setText(String.format("%d",s.rField3));
                 }
               
 

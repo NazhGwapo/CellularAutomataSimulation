@@ -1,9 +1,12 @@
-package ui;
+package ui.mainScreen;
 
 import gamelogic.clickToggle;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
+import ui.ControlPanel.controlPanel;
+import ui.mainComponents.mainFrame;
 
 public class Screen {
 
