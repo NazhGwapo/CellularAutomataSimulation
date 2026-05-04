@@ -61,10 +61,6 @@ public class AliveGraph
         return this.graphCanvas;
     }
 
-    public Dialog getDialog()
-    {
-        return this.dialog;
-    }
     public boolean  getRunning()
     {
         return graphRunning;
