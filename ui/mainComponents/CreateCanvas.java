@@ -37,13 +37,11 @@ public class CreateCanvas extends Canvas {
     private boolean running = false;
     private Boolean[][] grid;
 
-    private String modeType = null;
 
     gameoflifeLogic logic = new gameoflifeLogic();
     public generationsLabel gLabel;
-    public CreateCanvas(int Blocks, double Chance, clickToggle cToggle, Color c,int rule1,int rule2,int rule3,String modeType,generationsLabel gLabel)
+    public CreateCanvas(int Blocks, double Chance, clickToggle cToggle, Color c,int rule1,int rule2,int rule3,generationsLabel gLabel)
     {
-        this.modeType = modeType;
         this.gLabel = gLabel;
         this.Blocks = Blocks;
         this.Chance = Chance;
@@ -51,9 +49,6 @@ public class CreateCanvas extends Canvas {
         this.rule2 = rule2;
         this.rule3 = rule3;
         this.setBackground(c);
-        if(this.modeType.equals("Conway's game of life"))
-        {
-        
         gridInit();
             addMouseListener(new MouseAdapter() {
                 @Override
@@ -65,19 +60,19 @@ public class CreateCanvas extends Canvas {
 
                     if(toggle)
                     {
-                    if(alive > squared)
-                    {
-                        alive = squared;
-                        dead = 0;
+                        if(alive > squared)
+                        {
+                            alive = squared;
+                            dead = 0;
+                            }
                         }
-                    }
                     else
                     {
-                    if(dead > squared)
-                    {
-                        dead = squared;
-                        alive = 0;
-                    }
+                        if(dead > squared)
+                        {
+                            dead = squared;
+                            alive = 0;
+                        }
                     }
                      if(gCanva!= null)
                     {
@@ -98,19 +93,19 @@ public class CreateCanvas extends Canvas {
                     
                     if(toggle)
                     {
-                    if(alive > squared)
-                    {
-                        alive = squared;
-                        dead = 0;
-                    }
+                        if(alive > squared)
+                        {
+                            alive = squared;
+                            dead = 0;
+                        }
                     }
                     else
                     {
-                    if(dead > squared)
-                    {
-                        dead = squared;
-                        alive = 0;
-                    }
+                        if(dead > squared)
+                        {
+                            dead = squared;
+                            alive = 0;
+                        }
                     }
                     if(gCanva!= null)
                     {
@@ -120,7 +115,7 @@ public class CreateCanvas extends Canvas {
                     gLabel.getAliveLabel().setText(String.format("Alive: %d", alive));
                 }
                 });
-        }
+        
         
     }
 
@@ -305,11 +300,8 @@ public class CreateCanvas extends Canvas {
                     graphCanva graphCanva = canva.gCanva;
                     if(graphCanva != null)
                     {
-                        int xcoor = graphCanva.getXcoor();
-                        int ycoor = graphCanva.getYcoor();
                         graphCanva.pushAliveinList(alive);
-                        graphCanva.setXcoor(xcoor+1);
-                        graphCanva.setYcoor(ycoor+1);
+
 
                         graphCanva.repaint();
                         

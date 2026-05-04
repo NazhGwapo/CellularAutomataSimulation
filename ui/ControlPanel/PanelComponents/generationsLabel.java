@@ -4,13 +4,24 @@ import java.awt.*;
 
 public class generationsLabel extends Panel  {
 
-    private Label aliveCount;
-    private Label deadCount;
-    private Label generationsCount;
+    private final Label aliveCount;
+    private final Label deadCount;
+    private final Label generationsCount;
 
 
-    public generationsLabel() {
+    public generationsLabel(int generations,int alive,int dead) {
         this.setLayout(new FlowLayout());
+        
+        generationsCount = new Label(String.format("Generations: %d", generations));
+        generationsCount.setFont(new Font("Arial",Font.BOLD,12));
+        aliveCount = new Label(String.format("Alive: %d", alive));
+        aliveCount.setFont(new Font("Arial",Font.BOLD,12));
+        deadCount = new Label(String.format("Dead: %d", dead));
+        deadCount.setFont(new Font("Arial",Font.BOLD,12));
+        this.add(generationsCount);
+        this.add(aliveCount);
+        this.add(deadCount);
+
     }
 
     public Label getGnerationsLabel()
@@ -29,20 +40,7 @@ public class generationsLabel extends Panel  {
     }
     
     
-    public void conwayGenerationLabel(int generations,int alive,int dead)
-    {
-        generationsCount = new Label(String.format("Generations: %d", generations));
-        generationsCount.setFont(new Font("Arial",Font.BOLD,12));
-        aliveCount = new Label(String.format("Alive: %d", alive));
-        aliveCount.setFont(new Font("Arial",Font.BOLD,12));
-        deadCount = new Label(String.format("Dead: %d", generations));
-        deadCount.setFont(new Font("Arial",Font.BOLD,12));
-        this.add(generationsCount);
-        this.add(aliveCount);
-        this.add(deadCount);
-
-
-    }
+    
 
 
 }

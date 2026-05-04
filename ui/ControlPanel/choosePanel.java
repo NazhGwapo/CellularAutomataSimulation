@@ -2,9 +2,8 @@ package ui.ControlPanel;
 
 import gamelogic.clickToggle;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import ui.ControlPanel.PanelComponents.creationSettings;
 import ui.ControlPanel.PanelComponents.generationsLabel;
-import ui.ControlPanel.PanelComponents.modeUI;
 import ui.ControlPanel.PanelComponents.ruleFields;
 import ui.helperComponent.warningDialog;
 import ui.mainComponents.CreateCanvas;
@@ -25,8 +24,8 @@ public class choosePanel extends Panel {
     private CreateCanvas currentCanva;
 
     private final mainFrame mFrame;
-    private clickToggle cToggle;
-    private modeUI mType;
+    private final clickToggle cToggle;
+    private creationSettings mType;
     private ruleFields rField;
     private generationsLabel gLabel;
 
@@ -51,32 +50,24 @@ public class choosePanel extends Panel {
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 120, 30));
         this.setBackground(Color.white);
 
-        Label title = new Label("Choose Cellular Automata Simulation");
+        Label title = new Label(mFrame.getTitle());
         title.setFont(new Font("Arial", Font.BOLD, 20));
         
 
-        PopupMenu popupMenu = new PopupMenu();
-        MenuItem menuItem1 = new MenuItem("Conway's game of life");
-        MenuItem menuItem2 = new MenuItem("Elementary Cellular Automata");
-        popupMenu.add(menuItem1);
-        popupMenu.add(menuItem2);
 
-        Button confirmBtn = new Button("Choose");
+        Button confirmBtn = new Button("Create Canva");
         confirmBtn.setFont(new Font("Arial", Font.BOLD, 30));
 
-        mType = new modeUI();
+        mType = new creationSettings();
         rField = new ruleFields();
-        gLabel = new generationsLabel();
+        gLabel = new generationsLabel(0,0,0);
 
         this.add(title);
         this.add(confirmBtn);
-        this.add(popupMenu);
         this.add(mType);
         this.add(rField);
         this.add(gLabel);
-        mType.ConwayLabel(menuItem1.getLabel());
-        rField.conwayField();
-        gLabel.conwayGenerationLabel(0, 0,0);
+
 
 
 
@@ -93,13 +84,7 @@ public class choosePanel extends Panel {
                 gLabel.getAliveLabel().setText(String.format("Alive: %d", currentCanva.getAlive()));
                 gLabel.getDeadLabel().setText(String.format("Dead : %d", currentCanva.getDead()));
             }
-            popupMenu.show(confirmBtn, this.getX() / 2, this.getY() / 2);
-           
-        });
-
-        menuItem1.addActionListener((ActionEvent e) ->
-        {
-            try {
+           try {
                 
 
                 Settings setting = new Settings();
@@ -115,7 +100,7 @@ public class choosePanel extends Panel {
                     mFrame.remove(currentCanva);
                 }
 
-                currentCanva = new CreateCanvas(setting.blocks, setting.chances, cToggle, Color.black,setting.rField1,setting.rField2,setting.rField3,mType.getModeType(),gLabel);
+                currentCanva = new CreateCanvas(setting.blocks, setting.chances, cToggle, Color.black,setting.rField1,setting.rField2,setting.rField3,gLabel);
                 mFrame.add(currentCanva, BorderLayout.CENTER);
                 mFrame.validate();
                 mFrame.repaint();
@@ -172,31 +157,7 @@ public class choosePanel extends Panel {
             }
         });
 
-        menuItem2.addActionListener(e ->
-        {
-            try
-            {
-                TextField chancesField =  mType.getchancesField();
-                Label chancesLabel =  mType.getchancesText();
-                TextField blocksField = mType.getblocksField();
-                Label blocksText = mType.getblocksText();
-                if(mType.isAncestorOf(chancesField) && mType.isAncestorOf(chancesLabel))
-                {
-                    mType.remove(blocksField);
-                    mType.remove(blocksText);
-                    mType.remove(chancesField);
-                    mType.remove(chancesLabel);
-                    mType.add(blocksText);
-                    mType.add(blocksField);
-
-                }
-
-            }
-            catch(NumberFormatException ex)
-            {
-
-            }
-        });
+        
     }
 
     public CreateCanvas getCurrentCanva()

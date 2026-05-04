@@ -6,40 +6,35 @@ import java.awt.*;
 
 public class ruleFields extends Panel 
 {
-    private Label textRule1;
-    private Label textRule2;
-    private Label textRule3;
-    private TextField ruleField1;
-    private TextField ruleField2;
-    private TextField ruleField3;
+    private final Label textRule1;
+    private final Label textRule2;
+    private final Label textRule3;
+    private final TextField ruleField1;
+    private final TextField ruleField2;
+    private final TextField ruleField3;
 
 
     public ruleFields() 
     {
     this.setLayout(new FlowLayout());
+    textRule1 = new Label("Rule 1(1-5)");
+    textRule1.setFont(new Font("Arial",Font.BOLD,12));
+    textRule2 = new Label("Rule 2(1-5)");
+    textRule2.setFont(new Font("Arial",Font.BOLD,12));
+    textRule3 = new Label("Rule 3(1-5)");
+    textRule3.setFont(new Font("Arial",Font.BOLD,12));
+    ruleField1 = new TextField("2");
+    ruleField2 = new TextField("3");
+    ruleField3 = new TextField("3");
+
+    this.add(textRule1);
+    this.add(ruleField1);
+    this.add(textRule2);
+    this.add(ruleField2);
+    this.add(textRule3);
+    this.add(ruleField3);
     }
 
-    public void conwayField()
-    {
-
-        textRule1 = new Label("Rule 1(1-5)");
-        textRule1.setFont(new Font("Arial",Font.BOLD,12));
-        textRule2 = new Label("Rule 2(1-5)");
-        textRule2.setFont(new Font("Arial",Font.BOLD,12));
-        textRule3 = new Label("Rule 3(1-5)");
-        textRule3.setFont(new Font("Arial",Font.BOLD,12));
-        ruleField1 = new TextField("2");
-        ruleField2 = new TextField("3");
-        ruleField3 = new TextField("3");
-
-        this.add(textRule1);
-        this.add(ruleField1);
-        this.add(textRule2);
-        this.add(ruleField2);
-        this.add(textRule3);
-        this.add(ruleField3);
-
-    }
 
     public TextField getrField1()
     {

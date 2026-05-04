@@ -1,6 +1,8 @@
 package ui.ControlPanel.PanelComponents;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import ui.mainComponents.mainFrame;
 
 
@@ -38,7 +40,15 @@ public class AliveGraph
                 
             }
         );
+
         
+        dialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                dialog.dispose();
+            }
+        });
         dialog.add(closeBtn, BorderLayout.SOUTH);
 
         dialog.setLocationRelativeTo(parent);

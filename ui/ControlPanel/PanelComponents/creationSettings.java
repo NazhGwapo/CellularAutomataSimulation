@@ -1,25 +1,19 @@
 package ui.ControlPanel.PanelComponents;
 
 import java.awt.*;
-import ui.ControlPanel.choosePanel;
 
-public class modeUI extends Panel {
+public class creationSettings extends Panel {
 
-    private String modeType;
-    private Label chancesText;
-    private Label blocksText;
-    private TextField chancesField;
-    private TextField blocksField;
+    private final Label chancesText;
+    private final Label blocksText;
+    private final TextField chancesField;
+    private final TextField blocksField;
 
 
-    public modeUI()
+    public creationSettings()
     {
         this.setLayout(new FlowLayout());
-    }
-
-    public void ConwayLabel(String modeType)
-    {
-        chancesText = new Label("Chances(0-100)");
+         chancesText = new Label("Chances(0-100)");
         chancesText.setFont(new Font("Arial",Font.BOLD,15));
         chancesField = new TextField("50"); 
         blocksText = new Label("Dimension (2-500)");
@@ -27,21 +21,15 @@ public class modeUI extends Panel {
         blocksField = new TextField("100"); 
 
 
-        this.modeType = modeType;
         this.add(chancesText);
         this.add(chancesField);
         this.add(blocksText);
         this.add(blocksField);
     }
 
-    public void ElementaryCellularLabel(choosePanel cPanel, String modeType)
-    {
-        this.modeType = modeType;
-    }
 
-    public String getModeType() {
-        return modeType;
-    }
+   
+ 
 
     public TextField getchancesField()
     {

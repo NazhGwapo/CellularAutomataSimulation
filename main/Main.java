@@ -11,6 +11,6 @@ public class Main
     {
         Screen window = new Screen();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        window.CreateScreen("Cellular Automata", screenSize.width,screenSize.height);        
+        window.CreateScreen("Conway's game of life", screenSize.width,screenSize.height);        
     }
 }

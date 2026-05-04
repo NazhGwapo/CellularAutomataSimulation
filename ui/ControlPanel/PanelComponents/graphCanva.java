@@ -15,11 +15,8 @@ public class graphCanva extends Canvas {
         this.alivelist.add(alive);
     }
  
-    public void setXcoor(int x) {}
-    public void setYcoor(int y) {}
-    public int getXcoor() { return alivelist.size(); }
-    public int getYcoor() { return 0; }
- 
+
+
     public void reset() {
         alivelist.clear();
         repaint();
