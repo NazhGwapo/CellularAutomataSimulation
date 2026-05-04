@@ -275,6 +275,11 @@ public class CreateCanvas extends Canvas {
                     offg.setColor(Color.BLACK);
                 }
                 offg.fillRect(startX + j * size, startY + i * size, size, size);
+                if(i == Blocks/2 && j == Blocks/2)
+                {
+                    offg.setColor(Color.green);
+                    offg.drawRect(startX + j*size,startY+ i*size , size, size);
+                }
             }
         }
 

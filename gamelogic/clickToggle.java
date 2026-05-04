@@ -30,6 +30,7 @@ public boolean  toggleCell(int x, int y,CreateCanvas canva)
 
     int startX = (canva.getWidth() - size * canva.get_Blocks()) / 2;
     int startY = (canva.getHeight() - size * canva.get_Blocks()) / 2;
+
     Boolean[][] grid = canva.get_grid();
     int col = (x - startX) / size;
     int row = (y - startY) / size;

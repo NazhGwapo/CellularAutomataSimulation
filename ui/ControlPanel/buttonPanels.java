@@ -98,7 +98,11 @@ public class buttonPanels extends Panel {
 
         showGraphButton.addActionListener(e->
             {
-                if (canva == null) return;
+                if (canva == null)
+                {
+                    new warningDialog().showWarning(mFrame,"You have not made a canva yet");
+                    return;
+                }
                 if(aGraph!= null && aGraph.getRunning())
                 {
                     

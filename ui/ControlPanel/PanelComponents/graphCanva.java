@@ -64,7 +64,6 @@ public class graphCanva extends Canvas {
         for (int i = 0; i <= ySteps; i++) {
             int yVal = (int) ((double) maxAlive * i / ySteps);
             int yPixel = marginTop + plotH - (int) ((double) plotH * i / ySteps);
- 
             offg.setColor(new Color(60, 60, 60));
             offg.drawLine(marginLeft, yPixel, marginLeft + plotW, yPixel);
  
