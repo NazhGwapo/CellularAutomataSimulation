@@ -74,19 +74,8 @@ public class choosePanel extends Panel {
 
         confirmBtn.addActionListener(e ->
         {
-            if(currentCanva != null && currentCanva.get_Running())
-            {
-                currentCanva.set_Running(false);
-                currentCanva.Start();
-                bPanel.getStartButton().setLabel("Start");
-                bPanel.getStartButton().setBackground(Color.gray);
-                gLabel.getGnerationsLabel().setText(String.format("Generations: %d", currentCanva.getGenerations()));
-                gLabel.getAliveLabel().setText(String.format("Alive: %d", currentCanva.getAlive()));
-                gLabel.getDeadLabel().setText(String.format("Dead : %d", currentCanva.getDead()));
-            }
+            
            try {
-                
-
                 Settings setting = new Settings();
                 setting.chances = Integer.parseInt(mType.getchancesField().getText().trim());
                 setting.blocks= Integer.parseInt(mType.getblocksField().getText().trim());
@@ -97,9 +86,11 @@ public class choosePanel extends Panel {
 
                 if (currentCanva != null)
                 {
-                    mFrame.remove(currentCanva);
+                    currentCanva.set_Running(false);
+                    currentCanva.Start(); //DISABLES THE CANVA'S RUNNING LOOP 
+                    mFrame.remove(currentCanva); //THEN DELETES IT
                 }
-
+                // CREATE A NEW ONE
                 currentCanva = new CreateCanvas(setting.blocks, setting.chances, cToggle, Color.black,setting.rField1,setting.rField2,setting.rField3,gLabel);
                 mFrame.add(currentCanva, BorderLayout.CENTER);
                 mFrame.validate();
@@ -171,7 +162,7 @@ public class choosePanel extends Panel {
                 {
                     new warningDialog().showWarning(mFrame,"Chance must be 0-100 only!");
                     s.chances = 50;
-                    mType.getchancesField().setText("50");
+                    mType.getchancesField().setText(String.format("%d",s.chances));
                 }
                 if(s.blocks> 500 || s.blocks <2)
                 {

@@ -1,25 +1,24 @@
-package ui.ControlPanel;
+    package ui.ControlPanel;
 
-import gamelogic.clickToggle;
-import ui.mainComponents.mainFrame;
+    import gamelogic.clickToggle;
+    import java.awt.*;
+    import ui.mainComponents.mainFrame;
 
-import java.awt.*;
+    public class controlPanel extends Panel {
 
-public class controlPanel extends Panel {
+        public controlPanel(int Width, int Length, mainFrame mFrame, clickToggle cToggle)
+        {
+            this.setPreferredSize(new Dimension((int)(Width * 0.3), Length));
+            this.setBackground(Color.WHITE);
+            this.setLayout(new GridLayout(0, 1));
+            buttonPanels bPanel = new buttonPanels(cToggle,mFrame);
 
-    public controlPanel(int Width, int Length, mainFrame mFrame, clickToggle cToggle)
-    {
-        this.setPreferredSize(new Dimension((int)(Width * 0.3), Length));
-        this.setBackground(Color.WHITE);
-        this.setLayout(new GridLayout(0, 1));
-        buttonPanels bPanel = new buttonPanels(cToggle,mFrame);
+            choosePanel cPanel = new choosePanel(mFrame, cToggle,bPanel);
+            cPanel.setCanvasReadyListener(canvas -> {
+                bPanel.setCanvas(canvas);
+            });
 
-        choosePanel cPanel = new choosePanel(mFrame, cToggle,bPanel);
-        cPanel.setCanvasReadyListener(canvas -> {
-            bPanel.setCanvas(canvas);
-        });
-
-        this.add(cPanel);
-        this.add(bPanel);
+            this.add(cPanel);
+            this.add(bPanel);
+        }
     }
-}

@@ -34,6 +34,8 @@ public boolean  toggleCell(int x, int y,CreateCanvas canva)
     Boolean[][] grid = canva.get_grid();
     int col = (x - startX) / size;
     int row = (y - startY) / size;
+    // System.out.println("x: " + x);
+    // System.out.println("y: " + y);
 
     if (row >= 0 && row < canva.get_Blocks() && col >= 0 && col < canva.get_Blocks())
     {
