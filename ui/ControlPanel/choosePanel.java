@@ -24,7 +24,6 @@ public class choosePanel extends Panel {
     private CreateCanvas currentCanva;
 
     private final mainFrame mFrame;
-    private final clickToggle cToggle;
     private creationSettings mType;
     private ruleFields rField;
     private generationsLabel gLabel;
@@ -46,7 +45,6 @@ public class choosePanel extends Panel {
     public choosePanel(mainFrame mFrame, clickToggle cToggle,buttonPanels bPanel)
     {
         this.mFrame = mFrame;
-        this.cToggle = cToggle;
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 120, 30));
         this.setBackground(Color.white);
 
@@ -155,6 +153,7 @@ public class choosePanel extends Panel {
     {
         return this.currentCanva;
     }
+
 
     private void FieldsChecking(Settings s)
     {

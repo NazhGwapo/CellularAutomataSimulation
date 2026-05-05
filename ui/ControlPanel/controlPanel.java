@@ -2,7 +2,9 @@
 
     import gamelogic.clickToggle;
     import java.awt.*;
-    import ui.mainComponents.mainFrame;
+import ui.ControlPanel.choosePanel.CanvasReadyListener;
+import ui.mainComponents.CreateCanvas;
+import ui.mainComponents.mainFrame;
 
     public class controlPanel extends Panel {
 
@@ -14,10 +16,14 @@
             buttonPanels bPanel = new buttonPanels(cToggle,mFrame);
 
             choosePanel cPanel = new choosePanel(mFrame, cToggle,bPanel);
-            cPanel.setCanvasReadyListener(canvas -> {
-                bPanel.setCanvas(canvas);
-            });
-
+             cPanel.setCanvasReadyListener(new CanvasReadyListener() 
+             {
+                 @Override
+                public void onCanvasReady(CreateCanvas canvas) {
+                    bPanel.setCanvas(canvas);
+                }
+            });   
+            
             this.add(cPanel);
             this.add(bPanel);
         }
