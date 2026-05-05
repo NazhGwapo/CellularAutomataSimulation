@@ -50,6 +50,9 @@ public class CreateCanvas extends Canvas {
         this.rule3 = rule3;
         this.setBackground(c);
         gridInit();
+
+
+
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e)
@@ -81,7 +84,8 @@ public class CreateCanvas extends Canvas {
                     gLabel.getDeadLabel().setText(String.format("Dead: %d", dead));
                     gLabel.getAliveLabel().setText(String.format("Alive: %d", alive));
 
-                }});
+                }
+            });
 
             addMouseMotionListener(new MouseMotionAdapter() {
                 @Override
@@ -208,6 +212,11 @@ public class CreateCanvas extends Canvas {
     {
         this.gCanva = gCanva;
     }
+
+    public graphCanva getGraph()
+    {
+        return this.gCanva;
+    }
     
     public final void gridInit()
     {
@@ -275,6 +284,11 @@ public class CreateCanvas extends Canvas {
                     offg.setColor(Color.BLACK);
                 }
                 offg.fillRect(startX + j * size, startY + i * size, size, size);
+                if(Blocks <= 200)
+                {
+                    offg.setColor(Color.gray);
+                    offg.drawRect(startX + j*size,startY+ i*size , size, size);
+                }
                 if(i == Blocks/2 && j == Blocks/2)
                 {
                     offg.setColor(Color.green);

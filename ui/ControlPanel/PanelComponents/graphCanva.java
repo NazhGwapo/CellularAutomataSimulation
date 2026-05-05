@@ -17,11 +17,7 @@ public class graphCanva extends Canvas {
  
 
 
-    public void reset() {
-        alivelist.clear();
-        repaint();
-    }
- 
+
     @Override
     public void update(Graphics g) {
         paint(g);
@@ -55,7 +51,8 @@ public class graphCanva extends Canvas {
  
         int maxAlive = 1;
         for (int val : alivelist) {
-            if (val > maxAlive) maxAlive = val;
+            if (val > maxAlive) 
+                maxAlive = val;
         }
  
         int totalGens = alivelist.size();
@@ -82,9 +79,7 @@ public class graphCanva extends Canvas {
         int xTicks = Math.min(5, totalGens);
         for (int i = 0; i <= xTicks; i++) {
             int gen = (int) ((double) (totalGens - 1) * i / xTicks);
-            int xPixel = marginLeft + (totalGens > 1
-                    ? (int) ((double) plotW * gen / (totalGens - 1))
-                    : 0);
+            int xPixel = marginLeft + (totalGens > 1 ? (int) ((double) plotW * gen / (totalGens - 1)) : 0);
             offg.drawString(String.valueOf(gen), xPixel - 5, marginTop + plotH + 14);
         }
  

@@ -47,6 +47,8 @@ public class AliveGraph
             public void windowClosing(WindowEvent e)
             {
                 dialog.dispose();
+                dialog = null;
+                graphRunning = false;
             }
         });
         dialog.add(closeBtn, BorderLayout.SOUTH);
